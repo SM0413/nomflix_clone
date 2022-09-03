@@ -128,11 +128,11 @@ function Header() {
     console.log(scrollY.get());
     scrollY.onChange(() => {
       console.log(scrollY.get());
-      //   if (scrollY.get() > 80) {
-      //     navAnimation.start("scroll");
-      //   } else {
-      //     navAnimation.start("top");
-      //   }
+      if (scrollY.get() > 80) {
+        navAnimation.start("scroll");
+      } else {
+        navAnimation.start("top");
+      }
     });
   }, [scrollY, navAnimation]);
 
