@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import App from "./App";
+import { theme } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -58,7 +59,6 @@ body {
   font-weight: 300;
   font-family: 'Source Sans Pro', sans-serif;
   line-height: 1.2;
-  background-color: black;
 }
 a {
   text-decoration:none;
@@ -70,8 +70,8 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <>
+  <ThemeProvider theme={theme}>
     <GlobalStyle />
     <App />
-  </>
+  </ThemeProvider>
 );
