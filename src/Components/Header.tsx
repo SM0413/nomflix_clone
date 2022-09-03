@@ -1,6 +1,6 @@
 import { Link, useMatch } from "react-router-dom";
 import styled from "styled-components";
-import { motion, useAnimation, useViewportScroll } from "framer-motion";
+import { motion, useAnimation, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const Nav = styled(motion.nav)`
@@ -112,7 +112,7 @@ function Header() {
   const tvMatch = useMatch("/tv");
   const inputAnimation = useAnimation();
   const navAnimation = useAnimation();
-  const { scrollY } = useViewportScroll();
+  const { scrollY } = useScroll();
   const toggleSearch = () => {
     if (searchOpen) {
       inputAnimation.start({
@@ -125,12 +125,14 @@ function Header() {
   };
 
   useEffect(() => {
+    console.log(scrollY.get());
     scrollY.onChange(() => {
-      if (scrollY.get() > 80) {
-        navAnimation.start("scroll");
-      } else {
-        navAnimation.start("top");
-      }
+      console.log(scrollY.get());
+      //   if (scrollY.get() > 80) {
+      //     navAnimation.start("scroll");
+      //   } else {
+      //     navAnimation.start("top");
+      //   }
     });
   }, [scrollY, navAnimation]);
 
