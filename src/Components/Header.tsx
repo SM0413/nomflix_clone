@@ -44,7 +44,6 @@ const Item = styled.li`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  color: #2c3e50;
   &:hover {
     color: ${(props) => props.theme.white.lighter};
   }
