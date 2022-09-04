@@ -44,6 +44,7 @@ const Item = styled.li`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  color: #2c3e50;
   &:hover {
     color: ${(props) => props.theme.white.lighter};
   }
@@ -125,9 +126,7 @@ function Header() {
   };
 
   useEffect(() => {
-    console.log(scrollY.get());
     scrollY.onChange(() => {
-      console.log(scrollY.get());
       if (scrollY.get() > 80) {
         navAnimation.start("scroll");
       } else {
