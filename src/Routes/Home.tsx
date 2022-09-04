@@ -39,6 +39,7 @@ const Overview = styled.p`
 
 const Slider = styled.div`
   position: relative;
+  top: -100px;
 `;
 
 const Row = styled(motion.div)`
@@ -99,7 +100,7 @@ function Home() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                transition={{ type: "tween", duration: 5 }}
+                transition={{ type: "tween", duration: 1 }}
                 key={index}
               >
                 {[1, 2, 3, 4, 5, 6].map((i) => (
