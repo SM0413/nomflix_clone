@@ -125,6 +125,7 @@ function Header() {
   };
 
   useEffect(() => {
+    console.log(scrollY.get());
     scrollY.onChange(() => {
       if (scrollY.get() > 80) {
         navAnimation.start("scroll");
