@@ -58,7 +58,7 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
   background-image: url(${(props) => props.bgPhoto});
   background-size: cover;
   background-position: center center;
-  height: 140px;
+  height: 200px;
   font-size: 66px;
   cursor: pointer;
   &:first-child {
@@ -70,25 +70,15 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
 `;
 
 const Info = styled(motion.div)`
-  padding: 5px;
+  padding: 10px;
   background-color: ${(props) => props.theme.black.lighter};
   opacity: 0;
-  position: absolute;
-  width: 100%;
+
   bottom: 0;
   h4 {
     text-align: center;
     font-size: 18px;
   }
-`;
-
-const Overlay = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  background-color: black;
 `;
 
 const BigMovie = styled(motion.div)`
@@ -195,7 +185,7 @@ function Home() {
     data?.results.find(
       (movie) => String(movie.id) === bigMovieMatch.params.movieId
     );
-  console.log(clickedMovie);
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -245,34 +235,34 @@ function Home() {
             </AnimatePresence>
           </Slider>
           <AnimatePresence>
-            <>
-              <Overlay
-                onClick={onOverlayClick}
-                exit={{ opacity: 0 }}
-                animate={{ opacity: 0 }}
-              />
-              {bigMovieMatch ? (
-                <BigMovie
-                  style={{ top: scrollY.get() + 65 }}
-                  layoutId={bigMovieMatch.params.movieId}
-                >
-                  {clickedMovie && (
-                    <>
-                      <BigCover
-                        style={{
-                          backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
-                            clickedMovie.backdrop_path,
-                            "w500"
-                          )})`,
-                        }}
-                      />
-                      <BigTitle>{clickedMovie.title}</BigTitle>
-                      <BigOverview>{clickedMovie.overview}</BigOverview>
-                    </>
-                  )}
-                </BigMovie>
-              ) : null}
-            </>
+            {bigMovieMatch && (
+              <BigMovie
+                style={{ top: scrollY.get() + 65 }}
+                layoutId={bigMovieMatch.params.movieId}
+              >
+                {clickedMovie && (
+                  <>
+                    <BigCover
+                      style={{
+                        backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
+                          clickedMovie.backdrop_path,
+                          "w500"
+                        )})`,
+                      }}
+                    ></BigCover>
+                    <BigTitle>{clickedMovie.title}</BigTitle>
+                    <BigOverview>{clickedMovie.overview}</BigOverview>
+                    <motion.img
+                      style={{ position: "absolute" }}
+                      onClick={onOverlayClick}
+                      exit={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      src={require("../img/GoBack.png")}
+                    />
+                  </>
+                )}
+              </BigMovie>
+            )}
           </AnimatePresence>
         </>
       )}
