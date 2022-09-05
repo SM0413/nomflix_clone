@@ -18,7 +18,7 @@ const Loader = styled.div`
   align-items: center;
 `;
 
-const Banner = styled.div<{ bgPhoto: string }>`
+const Banner = styled(motion.div)<{ bgPhoto: string }>`
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -36,8 +36,23 @@ const Title = styled.h2`
 `;
 
 const Overview = styled.p`
-  font-size: 30px;
   width: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  span {
+    font-size: 30px;
+    font-weight: bolder;
+  }
+`;
+
+const Language = styled.div`
+  width: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  span {
+    font-size: 30px;
+    font-weight: bolder;
+  }
 `;
 
 const Slider = styled.div`
@@ -71,7 +86,10 @@ const Box = styled(motion.div)<{ bgPhoto: string }>`
 
 const Info = styled(motion.div)`
   padding: 10px;
-  background-color: ${(props) => props.theme.black.lighter};
+  font-weight: bolder;
+  padding-top: 170px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+  position: relative;
   opacity: 0;
 
   bottom: 0;
@@ -79,6 +97,15 @@ const Info = styled(motion.div)`
     text-align: center;
     font-size: 18px;
   }
+`;
+
+const Overlay = styled(motion.div)`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 const BigMovie = styled(motion.div)`
@@ -114,17 +141,65 @@ const BigOverview = styled.p`
   top: -60px;
   position: relative;
   color: ${(props) => props.theme.white.lighter};
+  span {
+    font-weight: bolder;
+    font-size: 20px;
+  }
+`;
+
+const BigDiv = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+const BigLanguage = styled.div`
+  color: ${(props) => props.theme.white.lighter};
+  img {
+  }
+  span {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+`;
+
+const BigVoteAVG = styled.div`
+  color: ${(props) => props.theme.white.lighter};
+  span {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+`;
+
+const BigPopularity = styled.div`
+  color: ${(props) => props.theme.white.lighter};
+  span {
+    font-size: 20px;
+    font-weight: bolder;
+  }
+`;
+
+const BigReleaseDate = styled.div`
+  color: ${(props) => props.theme.white.lighter};
+  span {
+    font-size: 20px;
+    font-weight: bolder;
+  }
 `;
 
 const rowVariants = {
-  hidden: {
-    x: window.outerWidth + 5,
+  hidden: ({ isNext }: { isNext: boolean }) => {
+    return {
+      x: isNext ? window.outerWidth + 5 : -window.outerWidth - 5,
+    };
   },
   visible: {
     x: 0,
   },
-  exit: {
-    x: -window.outerWidth - 5,
+  exit: ({ isNext }: { isNext: boolean }) => {
+    return {
+      x: isNext ? -window.outerWidth - 5 : window.outerWidth + 5,
+    };
   },
 };
 
@@ -156,6 +231,30 @@ const infoVariants = {
 
 const offset = 6;
 
+const ArrowLeft = styled.div`
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.05);
+  height: 100%;
+  width: 2%;
+  cursor: pointer;
+`;
+
+const ArrowRight = styled.div`
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.05);
+  height: 100%;
+  width: 2%;
+  cursor: pointer;
+`;
+
 function Home() {
   const navigate = useNavigate();
   const bigMovieMatch = useMatch("/movies/:movieId");
@@ -166,13 +265,25 @@ function Home() {
   );
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
-  const incraseIndex = () => {
+  const [isNext, setIsNext] = useState(true);
+  const incraseIndexNext = () => {
     if (data) {
       if (leaving) return;
+      setIsNext(true);
       toggleLeaving();
       const totalMovies = data.results.length;
       const maxIndex = Math.floor(totalMovies / offset) - 1;
       setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    }
+  };
+  const incraseIndexPrev = () => {
+    if (data) {
+      if (leaving) return;
+      setIsNext(false);
+      toggleLeaving();
+      const totalMovies = data.results.length;
+      const maxIndex = Math.floor(totalMovies / offset) - 1;
+      setIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
     }
   };
   const toggleLeaving = () => setLeaving((prev) => !prev);
@@ -192,17 +303,45 @@ function Home() {
         <Loader>Loading....</Loader>
       ) : (
         <>
-          {" "}
           <Banner
-            onClick={incraseIndex}
+            onClick={() => {
+              data && onBoxClicked(data?.results[0].id);
+            }}
+            layoutId={String(data?.results[0].id)}
+            key={data?.results[0].id}
             bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
           >
             <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
+            <Overview>
+              <span>Overview</span>
+              <br />
+              {data?.results[0].overview}
+            </Overview>
+            <br />
+            <Language>
+              <span>Language</span>
+              <img
+                alt={data?.results[0].backdrop_path}
+                src={require(`../img/${data?.results[0].original_language}.png`)}
+              />
+              <br />
+              {data?.results[0].original_language === "en"
+                ? "English"
+                : data?.results[0].original_language === "ko"
+                ? "Korean"
+                : data?.results[0].original_language === "ja"
+                ? "Japanese"
+                : null}
+            </Language>
           </Banner>
           <Slider>
-            <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+            <AnimatePresence
+              custom={{ isNext }}
+              initial={false}
+              onExitComplete={toggleLeaving}
+            >
               <Row
+                custom={{ isNext }}
                 variants={rowVariants}
                 initial="hidden"
                 animate="visible"
@@ -214,54 +353,104 @@ function Home() {
                   .slice(1)
                   .slice(offset * index, offset * index + offset)
                   .map((movie) => (
-                    <Box
-                      layoutId={movie.id + ""}
-                      key={movie.id}
-                      whileHover="hover"
-                      initial="normal"
-                      variants={BoxVariants}
-                      onClick={() => {
-                        onBoxClicked(movie.id);
-                      }}
-                      transition={{ type: "tween" }}
-                      bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
-                    >
-                      <Info variants={infoVariants}>
-                        <h4>{movie.title}</h4>
-                      </Info>
-                    </Box>
+                    <>
+                      <ArrowLeft onClick={incraseIndexPrev}>
+                        <img
+                          alt={movie.poster_path}
+                          src={require("../img/arrowLeft.PNG")}
+                        />
+                      </ArrowLeft>
+                      <Box
+                        layoutId={String(movie.id)}
+                        key={movie.id}
+                        whileHover="hover"
+                        initial="normal"
+                        variants={BoxVariants}
+                        onClick={() => {
+                          onBoxClicked(movie.id);
+                        }}
+                        transition={{ type: "tween" }}
+                        bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
+                      >
+                        <Info variants={infoVariants}>
+                          <h4>{movie.title}</h4>
+                        </Info>
+                      </Box>
+                      <ArrowRight onClick={incraseIndexNext}>
+                        <img
+                          alt={movie.poster_path}
+                          src={require("../img/arrowRight.PNG")}
+                        />
+                      </ArrowRight>
+                    </>
                   ))}
               </Row>
             </AnimatePresence>
           </Slider>
+
           <AnimatePresence>
             {bigMovieMatch && (
-              <BigMovie
-                style={{ top: scrollY.get() + 65 }}
-                layoutId={bigMovieMatch.params.movieId}
-              >
-                {clickedMovie && (
-                  <>
-                    <BigCover
-                      style={{
-                        backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
-                          clickedMovie.backdrop_path,
-                          "w500"
-                        )})`,
-                      }}
-                    ></BigCover>
-                    <BigTitle>{clickedMovie.title}</BigTitle>
-                    <BigOverview>{clickedMovie.overview}</BigOverview>
-                    <motion.img
-                      style={{ position: "absolute" }}
-                      onClick={onOverlayClick}
-                      exit={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      src={require("../img/GoBack.png")}
-                    />
-                  </>
-                )}
-              </BigMovie>
+              <>
+                <Overlay
+                  onClick={onOverlayClick}
+                  exit={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                />
+                <BigMovie
+                  style={{ top: scrollY.get() + 100 }}
+                  layoutId={bigMovieMatch.params.movieId}
+                >
+                  {clickedMovie && (
+                    <>
+                      <BigCover
+                        style={{
+                          backgroundImage: `linear-gradient(to top, black, transparent), url(${makeImagePath(
+                            clickedMovie.backdrop_path,
+                            "w500"
+                          )})`,
+                        }}
+                      />
+                      <BigTitle>{clickedMovie.title}</BigTitle>
+                      <BigOverview>
+                        <span key="e">Overview</span>
+                        <br />
+                        {clickedMovie.overview}
+                      </BigOverview>
+                      <BigDiv>
+                        <BigLanguage>
+                          <span>Language</span>
+                          <img
+                            alt="1"
+                            src={require(`../img/${clickedMovie.original_language}.png`)}
+                          />
+                          <br />
+                          {clickedMovie.original_language === "en"
+                            ? "English"
+                            : clickedMovie.original_language === "ko"
+                            ? "Korean"
+                            : clickedMovie.original_language === "ja"
+                            ? "Japanese"
+                            : null}
+                        </BigLanguage>
+                        <BigVoteAVG>
+                          <span>VoteAVG</span>
+                          <br />✮{clickedMovie.vote_average}
+                        </BigVoteAVG>
+                        <BigPopularity>
+                          <span>Poupularity</span>
+                          <br />
+                          👍{clickedMovie.popularity.toFixed(0)}
+                        </BigPopularity>
+                        <BigReleaseDate>
+                          <span>Release Date</span>
+                          <br />
+                          {clickedMovie.release_date}
+                        </BigReleaseDate>
+                      </BigDiv>
+                    </>
+                  )}
+                </BigMovie>
+              </>
             )}
           </AnimatePresence>
         </>

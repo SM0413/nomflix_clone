@@ -6,6 +6,10 @@ interface IMovie {
   poster_path: string;
   title: string;
   overview: string;
+  original_language: string;
+  popularity: number;
+  vote_average: number;
+  release_date: string;
 }
 
 export interface IGetMoviesResult {
