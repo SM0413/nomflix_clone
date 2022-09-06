@@ -9,11 +9,15 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/tv" element={<Tv />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/search?keyword=:keyword" element={<Home />} />
-        <Route path="/movies/:id" element={<Home />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/nomflix_clone" element={<Home />} />
+        <Route path="/nomflix_clone/tv" element={<Tv />} />
+        <Route path="/nomflix_clone/tv/:type/:id" element={<Tv />} />
+        <Route path="/nomflix_clone/search" element={<Search />} />
+        <Route
+          path="/nomflix_clone/search?keyword=:keyword"
+          element={<Home />}
+        />
+        <Route path="/nomflix_clone/movies/:type/:id" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
