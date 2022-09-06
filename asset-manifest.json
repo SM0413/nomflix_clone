@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/nomflix_clone/static/js/main.7e0d6279.js",
+    "main.js": "/nomflix_clone/static/js/main.27ef337b.js",
     "static/media/Loading.png": "/nomflix_clone/static/media/Loading.0c55c37ee73a6232d94d.png",
     "static/media/Movie.png": "/nomflix_clone/static/media/Movie.62778b03bb4d7ce1e2e0.png",
     "static/media/arrowRight.PNG": "/nomflix_clone/static/media/arrowRight.c3505f621857ae7ce579.PNG",
     "static/media/arrowLeft.PNG": "/nomflix_clone/static/media/arrowLeft.5ad32ccdc8445c8b6714.PNG",
     "index.html": "/nomflix_clone/index.html",
-    "main.7e0d6279.js.map": "/nomflix_clone/static/js/main.7e0d6279.js.map"
+    "main.27ef337b.js.map": "/nomflix_clone/static/js/main.27ef337b.js.map"
   },
   "entrypoints": [
-    "static/js/main.7e0d6279.js"
+    "static/js/main.27ef337b.js"
   ]
 }
