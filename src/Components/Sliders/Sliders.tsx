@@ -368,6 +368,8 @@ export function NowPlayingSlider({ type }: { type: MovieTypes }) {
                         ? "Portugal"
                         : clickedMovie.original_language === "tl"
                         ? "Democratic Republic of Timor-Leste"
+                        : clickedMovie.original_language === "tr"
+                        ? "Turkey"
                         : null}
                     </BigLanguage>
                     <BigVoteAVG>
@@ -552,6 +554,8 @@ export function TvShowSlider({ type }: { type: TvShowTypes }) {
                         ? "Portugal"
                         : clickedTvshows.original_language === "tl"
                         ? "Democratic Republic of Timor-Leste"
+                        : clickedTvshows.original_language === "tr"
+                        ? "Turkey"
                         : null}
                     </BigLanguage>
                     <BigVoteAVG>
