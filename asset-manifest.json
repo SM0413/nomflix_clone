@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "//sm0413.github.io/static/js/main.08585e90.js",
-    "static/media/Loading.png": "//sm0413.github.io/static/media/Loading.0c55c37ee73a6232d94d.png",
-    "static/media/Movie.png": "//sm0413.github.io/static/media/Movie.62778b03bb4d7ce1e2e0.png",
-    "static/media/arrowRight.PNG": "//sm0413.github.io/static/media/arrowRight.c3505f621857ae7ce579.PNG",
-    "static/media/arrowLeft.PNG": "//sm0413.github.io/static/media/arrowLeft.5ad32ccdc8445c8b6714.PNG",
-    "index.html": "//sm0413.github.io/index.html",
-    "main.08585e90.js.map": "//sm0413.github.io/static/js/main.08585e90.js.map"
+    "main.js": "//sm0413.github.io/nomflix_clone/static/js/main.d9fd8707.js",
+    "static/media/Loading.png": "//sm0413.github.io/nomflix_clone/static/media/Loading.0c55c37ee73a6232d94d.png",
+    "static/media/Movie.png": "//sm0413.github.io/nomflix_clone/static/media/Movie.62778b03bb4d7ce1e2e0.png",
+    "static/media/arrowRight.PNG": "//sm0413.github.io/nomflix_clone/static/media/arrowRight.c3505f621857ae7ce579.PNG",
+    "static/media/arrowLeft.PNG": "//sm0413.github.io/nomflix_clone/static/media/arrowLeft.5ad32ccdc8445c8b6714.PNG",
+    "index.html": "//sm0413.github.io/nomflix_clone/index.html",
+    "main.d9fd8707.js.map": "//sm0413.github.io/nomflix_clone/static/js/main.d9fd8707.js.map"
   },
   "entrypoints": [
-    "static/js/main.08585e90.js"
+    "static/js/main.d9fd8707.js"
   ]
 }
